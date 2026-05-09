@@ -1,0 +1,19 @@
+# Data files (too large for git)
+data/raw/*.json
+FastCharge.zip
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Large results
+results/models/*.pkl
+results/models/*.h5
+
+# Personal notes (optional)
+Research Papers/
+*.docx
