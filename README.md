@@ -12,13 +12,28 @@ MIT-Stanford-Toyota battery dataset from:
 
 ```
 data/raw/              # JSON per cell (gitignored)
-data/processed/        # CSV tables built from notebooks
-docs/week01/           # Week 1 written deliverables
-notebooks/01_...         # Bulk EOL extraction
-notebooks/02_...         # Inspect one JSON file (json.load)
+data/processed/        # cycle_summary.csv, etc.
+data/cell_targets.csv  # EOL labels
+docs/week01/           # Week 1 deliverables
+docs/report/           # Report sections (merge Week 8)
+docs/slides/           # Google Slides outlines
+notebooks/01_...       # EOL extraction
+notebooks/02_...       # Inspect one JSON
+notebooks/03_...       # cycle_summary export
+results/figures/       # PNGs for slides + report
+scripts/               # figure generation, utilities
 ```
+
+## How to run
+
+1. Place raw JSON in `data/raw/` (FastCharge*.json).
+2. Run notebooks in order: `01` → `03` (02 optional inspection).
+3. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
+4. Report sections: `docs/report/` — see `docs/report/README.md` for PDF export.
+
+Install: `pip install -r requirements.txt`
 
 ## Project Status
 
-Week 1: EOL + initial capacity extracted; inspect one cell in `02_inspect_one_cell.ipynb`; fill in `docs/week01/`
+Week 1–2: EOL labels, cycle_summary (114k rows), report §1–3, slide outlines, EDA figures
 

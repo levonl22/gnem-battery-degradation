@@ -17,3 +17,4 @@ results/models/*.h5
 # Personal notes (optional)
 Research Papers/
 *.docx
+literature/*.pdf
