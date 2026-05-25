@@ -2,6 +2,7 @@
 
 ML-based prediction of lithium-ion battery cycle life using early-cycle data.
 
+
 ## Dataset
 MIT-Stanford-Toyota battery dataset from:
 - Severson et al. (2019). "Data-driven prediction of battery cycle life before capacity degradation." *Nature Energy*, 4, 383-391.
@@ -29,6 +30,7 @@ scripts/               # figure generation, utilities
 1. Place raw JSON in `data/raw/` (FastCharge*.json).
 2. Run notebooks in order: `01` → `03` (02 optional inspection).
 3. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
+4. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
 4. Report sections: `docs/report/` — see `docs/report/README.md` for PDF export.
 
 Install: `pip install -r requirements.txt`
