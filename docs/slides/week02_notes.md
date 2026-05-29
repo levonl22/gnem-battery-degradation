@@ -4,7 +4,18 @@ Add these slides to the same deck after Week 1 check-in.
 
 ---
 
-## Slide 3 — Capacity fade example
+## Slide 3 — Data cleaning
+
+**Title:** Week 2 — Cleaned dataset
+
+**Bullets:**
+- **140 raw test files** → **134 unique cells** (five barcodes tested twice; one partial run dropped)
+- **Rule:** keep longest test per barcode; each row has `file_id` + `cell_id`
+- **Outputs:** `cell_targets.csv` (134 rows) · `cycle_summary.csv` (110,910 cycle rows)
+
+---
+
+## Slide 4 — Capacity fade example
 
 **Title:** Example capacity degradation curve
 
@@ -17,19 +28,19 @@ Add these slides to the same deck after Week 1 check-in.
 
 ---
 
-## Slide 4 — Cycle-life distribution
+## Slide 5 — Cycle-life distribution
 
 **Title:** End-of-life distribution across cells
 
 **Bullets:**
-- 139 labeled records; median EOL ≈ 788 cycles
+- **134** labeled cells; median EOL ≈ **792** cycles
 - Range: 159–2,237 cycles (matches Severson-scale variability)
-- Informs train/test split and model error interpretation
+- Informs cell-level train/test split and model error interpretation
 
-**Figure:** `results/figures/eol_distribution.png` (same as Week 1 slide 2, or updated after dedup)
+**Figure:** `results/figures/eol_distribution.png`
 
 ---
 
 ## Speaker notes (30 sec)
 
-Visual confirmation that cells degrade at different rates. EOL spread motivates cell-level ML split and early-cycle prediction task.
+Week 2: cleaned duplicate barcodes so one row = one cell, then confirmed EOL spread and example fade curves. That variability is why we predict cycle life from early cycles rather than assuming a single degradation rate.

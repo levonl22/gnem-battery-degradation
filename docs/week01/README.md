@@ -25,3 +25,5 @@
 | `02_inspect_one_cell.ipynb` | Inspect one JSON file |
 | `03_build_cycle_summary.ipynb` | Full `cycle_summary.csv` |
 
+**Week 2:** [`docs/week02/README.md`](../week02/README.md) — dedupe policy, cleaned data.
+

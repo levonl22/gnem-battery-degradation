@@ -3,6 +3,8 @@
 **Author:** Levon Lau  
 **Date:** May 2026  
 
+> **Current processed data (Week 2):** 134 cells, 110,910 cycle rows, `file_id` column. See `docs/week02/duplicate_barcode_policy.md`. Tables below describe the initial Week 1 export where noted.
+
 ---
 
 ## 1. Source
@@ -41,14 +43,13 @@
 ## 3. Processed outputs (this repo)
 
 
-| File                               | Rows    | Grain                | Columns                              |
-| ---------------------------------- | ------- | -------------------- | ------------------------------------ |
-| `data/cell_targets.csv`            | 139     | 1 row / test record  | `cell_id`, `EOL`, `initial_capacity` |
-| `data/processed/cycle_summary.csv` | 114,314 | 1 row / cell / cycle | `cell_id` + 16 `summary` fields      |
+| File                               | Rows (Week 1 → Week 2) | Grain                | Columns                              |
+| ---------------------------------- | ---------------------- | -------------------- | ------------------------------------ |
+| `data/cell_targets.csv`            | 139 → **134**          | 1 row / cell         | `file_id`, `cell_id`, `EOL`, `initial_capacity` |
+| `data/processed/cycle_summary.csv` | 114,314 → **110,910**  | 1 row / cell / cycle | `file_id`, `cell_id` + 16 `summary` fields      |
 
 
-**Unique barcodes:** 134 in `cell_targets`; 135 in `cycle_summary`.  
-**Gap:** Five duplicate `cell_id` values in `cell_targets` (same barcode, two files, different EOL). One cell (`el150800737381`) appears only in `cycle_summary` with a single cycle (not in targets). These need a deduplication rule before ML.
+**Week 1 gap (resolved Week 2):** Five barcodes had two JSON files each; one partial file had no EOL. Longest-run-wins dedupe → 134 unique cells.
 
 ---
 
@@ -90,7 +91,7 @@
 - **EOL cycle:** First `cycle_index >= 1` where `discharge_capacity < 0.8 × initial_capacity`  
 - **Censored cells:** If threshold is never reached, EOL = last available cycle index
 
-**Distribution (139 rows):** min 159, median 788, max 2,237 cycles  
+**Distribution (134 cells, Week 2):** min 159, median 792, max 2,237 cycles  
 
 Built in `notebooks/01_data_exploration.ipynb`.
 
@@ -102,9 +103,9 @@ Built in `notebooks/01_data_exploration.ipynb`.
 | Issue                  | Detail                                                                                                                                                     |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Cycle 0**            | Formation / setup cycle; abnormal capacity and `charge_duration`. Exclude from EOL baseline and early-cycle windows (use cycle ≥ 1, or ≥ 10 for modeling). |
-| **Duplicate barcodes** | 5 IDs appear twice in `cell_targets` with different EOL (two JSON files per barcode).                                                                      |
-| **Partial cell**       | `el150800737381`: 1 cycle in `cycle_summary` only.                                                                                                         |
-| **Missing values**     | `charge_duration` (1,215 rows); `time_temperature_integrated` (34 rows).                                                                                   |
+| **Duplicate barcodes** | Resolved Week 2 (longest run per barcode).                                                                                                               |
+| **Partial cell**       | `el150800737381` excluded.                                                                                                                                 |
+| **Missing values**     | `charge_duration` (~1,209 rows); `time_temperature_integrated` (34 rows).                                                                                  |
 
 
 ---
@@ -115,8 +116,8 @@ Built in `notebooks/01_data_exploration.ipynb`.
 | Metric                    | Value                  |
 | ------------------------- | ---------------------- |
 | JSON files                | 140                    |
-| Cycles per cell (approx.) | 159–2,237; median ~788 |
-| `cycle_summary` rows      | 114,314                |
+| Cycles per cell (approx.) | 159–2,237; median ~792 |
+| `cycle_summary` rows      | 110,910 (134 cells)    |
 
 
 ---
@@ -133,5 +134,5 @@ Built in `notebooks/01_data_exploration.ipynb`.
 
 - Single public dataset and chemistry; results may not transfer to all cell types or operating conditions.  
 - EOL rule (80%) is a project choice; not the only industry definition.  
-- Duplicate barcodes and cycle 0 must be handled explicitly in preprocessing.
+- Cycle 0 must be excluded from EOL baseline and early-cycle windows; duplicate barcodes handled in Week 2.
 

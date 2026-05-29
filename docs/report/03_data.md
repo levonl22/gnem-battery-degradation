@@ -12,10 +12,10 @@ Each JSON file includes:
 
 | File | Rows | Description |
 |------|------|-------------|
-| `data/cell_targets.csv` | 139 | `cell_id`, `EOL`, `initial_capacity` |
-| `data/processed/cycle_summary.csv` | 114,314 | One row per cell per cycle; 17 columns |
+| `data/cell_targets.csv` | 134 | `file_id`, `cell_id`, `EOL`, `initial_capacity` |
+| `data/processed/cycle_summary.csv` | 110,910 | One row per cell per cycle; 18 columns |
 
-**Notebooks:** `01_data_exploration.ipynb` (targets), `03_build_cycle_summary.ipynb` (per-cycle export).
+**Notebooks:** `01_data_exploration.ipynb` (targets), `03_build_cycle_summary.ipynb` (per-cycle export). Rebuild script: `scripts/rebuild_processed_data.py`.
 
 ### End-of-life definition
 
@@ -23,27 +23,31 @@ Each JSON file includes:
 - EOL: first subsequent cycle with `discharge_capacity < 0.8 × initial`  
 - If threshold never reached: EOL = last cycle (censored)
 
-### Data quality issues
+### Cleaning (Week 2)
+
+Raw data has **140 files** but **134 unique barcodes** (five barcodes tested twice; one partial test). We apply **longest-run-wins dedupe**: keep the file with the higher EOL for each duplicate barcode; drop five short reruns and one formation-only partial cell (`el150800737381`). Each retained row has a unique `file_id` (JSON filename) and `cell_id` (barcode). Full rule: `docs/week02/duplicate_barcode_policy.md`.
+
+### Data quality notes
 
 | Issue | Action |
 |-------|--------|
 | **Cycle 0** | Formation/setup; exclude from baseline and early windows |
-| **Duplicate barcodes** | 5 IDs appear twice in `cell_targets` with different EOL; dedup rule TBD Week 2 |
-| **Partial cell** | `el150800737381`: 1 cycle only in summary |
-| **Missing fields** | `charge_duration` (1,215 rows); `time_temperature_integrated` (34 rows) |
+| **Duplicate barcodes** | Resolved — 134 cells after longest-run dedupe |
+| **Partial cell** | `el150800737381` excluded (cycle 0 only) |
+| **Missing fields** | `charge_duration` (1,209 rows); `time_temperature_integrated` (34 rows) |
 
-## 3.3 Exploratory analysis (Week 2)
+## 3.3 Exploratory analysis
 
 ### End-of-life distribution
 
-Across 139 labeled records in `cell_targets.csv`:
+Across **134** labeled cells in `cell_targets.csv`:
 
 | Statistic | EOL (cycles) |
 |-----------|----------------|
 | Minimum | 159 |
-| Median | 788 |
+| Median | 792 |
 | Maximum | 2,237 |
-| Mean | ~817 |
+| Mean | ~822 |
 
 ![EOL distribution](../../results/figures/eol_distribution.png)
 
@@ -63,6 +67,6 @@ Cycle 0 shows anomalously high discharge capacity and `charge_duration` compared
 
 ## 3.4 Planned preprocessing (before modeling)
 
-1. Resolve duplicate `cell_id` entries (keep first file, longest test, or add `file_id` as unique key).  
-2. Drop or flag partial cells (< minimum cycle count).  
+1. ~~Resolve duplicate `cell_id` entries~~ — done (Week 2).  
+2. ~~Drop partial cells~~ — done (`el150800737381` excluded).  
 3. Define early-cycle windows: cycles 1–20, 1–50, 1–100 for feature extraction (Week 3).
