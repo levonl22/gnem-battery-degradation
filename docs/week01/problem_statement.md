@@ -42,19 +42,19 @@ where **initial** is taken from the first qualifying cycle (formation / cycle 0 
 
 ---
 
-## 4. Data (current status — Week 1)
+## 4. Data (current status — Week 2)
 
 
 | Artifact                | Description                                                                      |
 | ----------------------- | -------------------------------------------------------------------------------- |
-| **Source**              | MIT-Stanford-Toyota fast-charge dataset (Severson et al., 2019), ~140 JSON files |
-| `**cell_targets.csv`**  | One row per cell: `cell_id`, `EOL`, `initial_capacity`                           |
-| `**cycle_summary.csv`** | One row per cell per cycle: 16 summary fields + `cell_id` (~114k rows)           |
+| **Source**              | MIT-Stanford-Toyota fast-charge dataset (Severson et al., 2019), 140 JSON files |
+| `**cell_targets.csv`**  | 134 rows: `file_id`, `cell_id`, `EOL`, `initial_capacity`                        |
+| `**cycle_summary.csv`** | 110,910 rows: `file_id`, `cell_id`, 16 summary fields per cycle                  |
 
 
-Raw JSON also contains interpolated voltage/current curves (`cycles_interpolated`); those are reserved for later feature work, not the Week 1 tables.
+Raw JSON also contains interpolated voltage/current curves (`cycles_interpolated`); reserved for later feature work.
 
-**Known data issues to address in modeling:** duplicate barcodes across files, formation-like **cycle 0**, and occasional missing summary fields (e.g. `charge_duration`).
+**Cleaning (Week 2):** Longest-run dedupe for five duplicate barcodes; partial cell excluded. See `docs/week02/duplicate_barcode_policy.md`. Formation **cycle 0** excluded from EOL baseline.
 
 ---
 
@@ -100,13 +100,11 @@ Raw JSON also contains interpolated voltage/current curves (`cycles_interpolated
 
 ---
 
-## 9. Week 1 Status
+## 9. Status
 
-- Raw data ingested; EOL @ 80% computed per cell  
-- Per-cycle `cycle_summary` exported for all processed files  
-- Schema and formation-cycle behavior documented (see dataset description)  
-- Literature summary table (Week 1 deliverable)  
-- EOL distribution + example fade figure (`results/figures/`)
+**Week 1:** Raw data ingested; EOL @ 80%; initial CSV export; literature summary; EDA figures started.  
+
+**Week 2:** Duplicate-barcode policy; cleaned 134-cell dataset; report §3 and slide outlines updated.
 
 ---
 

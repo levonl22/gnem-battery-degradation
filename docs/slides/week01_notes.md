@@ -20,8 +20,8 @@ Copy into your deck: **GNEM Battery Degradation — Weekly Progress**
 
 - **Goal:** Predict EOL from early cycles (80% capacity threshold)
 - **Built:** `JSON → cell_targets.csv` + `cycle_summary.csv`
-- **Scale:** 140 files · 114,314 cycle rows · 134 unique cell IDs
-- **Note:** Formation cycle 0 excluded; duplicate barcodes flagged for Week 2
+- **Scale:** 140 raw files → **134 cells** after Week 2 cleaning · ~111k cycle rows
+- **Note:** Formation cycle 0 excluded; duplicate barcodes resolved (Week 2)
 
 **Figure:** `results/figures/eol_distribution.png`
 
@@ -36,4 +36,4 @@ Raw JSON → notebook 01 → cell_targets (EOL)
 
 ## Speaker notes (30 sec)
 
-Loaded Severson fast-charge data, defined EOL at 80% initial capacity, exported per-cell labels and a 114k-row per-cycle table. Next: EDA plots and duplicate-barcode policy before feature engineering.
+Loaded Severson fast-charge data, defined EOL at 80%, exported labels and per-cycle table. Week 2 added cleaning and EDA figures before feature engineering.

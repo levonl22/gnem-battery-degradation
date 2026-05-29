@@ -5,7 +5,7 @@
 ## 7.1 Limitations
 
 - **Single dataset and chemistry** (LFP/graphite, fast-charge only); generalization untested.
-- **Duplicate barcodes** in raw files require explicit handling before ML.
+- **Duplicate barcodes** in raw files were deduped to 134 cells (Week 2); protocol heterogeneity remains.
 - **Mechanism-agnostic features:** capacity fade alone may not identify degradation mode (Li et al., 2025).
 - **EOL definition:** 80% of first measured capacity is one convention; industry definitions vary.
 

@@ -10,12 +10,11 @@ def main():
     summary = pd.read_csv(SUMMARY_PATH)
     targets = pd.read_csv(TARGETS_PATH)
 
-    n_dup = targets["cell_id"].duplicated().sum()
-    if n_dup:
-        print(f"Warning: {n_dup} duplicate cell_id rows in targets — keeping first row per cell_id.")
-        targets = targets.drop_duplicates(subset="cell_id", keep="first")
+    merge_key = "file_id" if "file_id" in summary.columns and "file_id" in targets.columns else "cell_id"
+    if merge_key == "cell_id" and targets["cell_id"].duplicated().any():
+        raise SystemExit("Duplicate cell_id in targets — rebuild with Week 2 dedupe policy.")
 
-    merged = summary.merge(targets, on="cell_id", how="left")
+    merged = summary.merge(targets, on=merge_key, how="left")
     merged.to_csv(OUTPUT_PATH, index=False)
     print(f"Saved {OUTPUT_PATH} ({len(merged):,} rows, {len(merged.columns)} cols)")
 

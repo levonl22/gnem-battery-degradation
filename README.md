@@ -16,6 +16,7 @@ data/raw/              # JSON per cell (gitignored)
 data/processed/        # cycle_summary.csv, etc.
 data/cell_targets.csv  # EOL labels
 docs/week01/           # Week 1 deliverables
+docs/week02/           # Week 2 (dedupe policy)
 docs/report/           # Report sections (merge Week 8)
 docs/slides/           # Google Slides outlines
 notebooks/01_...       # EOL extraction
@@ -29,13 +30,14 @@ scripts/               # figure generation, utilities
 
 1. Place raw JSON in `data/raw/` (FastCharge*.json).
 2. Run notebooks in order: `01` → `03` (02 optional inspection).
-3. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
-4. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
-4. Report sections: `docs/report/` — see `docs/report/README.md` for PDF export.
+3. Rebuild cleaned CSVs (after raw data change): `python scripts/rebuild_processed_data.py`
+4. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
+5. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
+6. Report sections: `docs/report/` — see `docs/report/README.md` for PDF export.
 
 Install: `pip install -r requirements.txt`
 
 ## Project Status
 
-Week 1–2: EOL labels, cycle_summary (114k rows), report §1–3, slide outlines, EDA figures
+Week 2 complete: 134 cells, cycle_summary (~111k rows), dedupe policy, report §3, EDA figures. Week 3: features.
 
