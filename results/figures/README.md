@@ -11,11 +11,18 @@ Save notebook exports here as PNG (150–300 dpi). Reference in report as `../..
 
 Regenerate: `python scripts/generate_week12_figures.py`
 
-## Planned (Weeks 3–7)
+## Week 3
+
+| File | Description |
+|------|-------------|
+| `feature_correlation.png` | Pearson heatmap — 44 features + EOL (134 cells) |
+
+Regenerate: run `notebooks/06_feature_correlation.ipynb`
+
+## Planned (Weeks 4–7)
 
 | Week | Suggested filename |
 |------|-------------------|
-| 3 | `feature_correlation.png` |
 | 4 | `baseline_mae_comparison.png`, `pred_vs_true_eol_ml.png` |
 | 5 | `pred_vs_true_eol_lstm.png` |
 | 6 | `soh_curves_constrained.png` |
