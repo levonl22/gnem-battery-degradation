@@ -27,3 +27,4 @@
 
 **Week 2:** [`docs/week02/README.md`](../week02/README.md) — dedupe policy, cleaned data.
 
+**Week 3:** feature notebooks `04`–`05`, `data/processed/cell_features.csv`.

@@ -24,4 +24,6 @@
 
 ## Next: Week 3
 
-Early-cycle features → `cell_features.csv` (not started).
+- [x] `notebooks/04_extract_voltage_features.ipynb` → `voltage_features.csv`
+- [x] `notebooks/05_build_cell_features.ipynb` → `cell_features.csv`
+- [ ] Correlation analysis vs EOL + Week 3 docs/slides
