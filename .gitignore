@@ -18,3 +18,5 @@ results/models/*.h5
 Research Papers/
 *.docx
 literature/*.pdf
+# Private working notes until formal Week 3 deliverables (README, report §4)
+docs/week03/
