@@ -16,6 +16,7 @@ data/processed/        # cycle_summary.csv, cell_features.csv, etc.
 data/cell_targets.csv  # EOL labels
 docs/week01/           # Week 1 deliverables
 docs/week02/           # Week 2 (dedupe policy)
+docs/week03/           # Week 3 (features, correlation)
 docs/report/           # Report sections (merge Week 8)
 docs/slides/           # Google Slides outlines
 notebooks/01_...       # EOL extraction
@@ -23,6 +24,7 @@ notebooks/02_...       # Inspect one JSON
 notebooks/03_...       # cycle_summary export
 notebooks/04_...       # voltage ΔV(Q) features
 notebooks/05_...       # cell_features merge
+notebooks/06_...       # correlation vs EOL
 results/figures/       # PNGs for slides + report
 scripts/               # figure generation, utilities
 ```
@@ -30,16 +32,17 @@ scripts/               # figure generation, utilities
 ## How to run
 
 1. Place raw JSON in `data/raw/` (FastCharge*.json).
-2. Run notebooks in order: `01` → `05` (`02` optional inspection).
+2. Run notebooks in order: `01` → `06` (`02` optional inspection).
 3. Rebuild cleaned CSVs (after raw data change): `python scripts/rebuild_processed_data.py`
 4. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
-5. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
-6. Report sections: `docs/report/` — see `docs/report/README.md` for PDF export.
+5. ΔV(Q) explainer figure: `python scripts/generate_delta_v_explainer_figure.py`
+6. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
+7. Report sections: `docs/report/` (merge to PDF in Week 8 via pandoc or Word).
 
 Install: `pip install -r requirements.txt`
 
 ## Project status
 
-Week 2 complete: 134 cells, cycle_summary (~111k rows), dedupe policy, report §3, EDA figures.
+Week 3 complete: **134 cells**, `cell_features.csv` (44 early-cycle features), correlation heatmap, report §4, slide outline `week03_notes.md`. Index: `docs/week03/README.md`.
 
-Week 3 in progress: `voltage_features.csv`, `cell_features.csv`, notebooks `04`–`05`. Next: correlation analysis and Week 3 docs.
+**Next (Week 4):** ML baselines on `cell_features.csv` (linear, ElasticNet, RF, XGBoost).

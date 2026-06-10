@@ -69,4 +69,4 @@ Cycle 0 shows anomalously high discharge capacity and `charge_duration` compared
 
 1. ~~Resolve duplicate `cell_id` entries~~ — done (Week 2).  
 2. ~~Drop partial cells~~ — done (`el150800737381` excluded).  
-3. Define early-cycle windows: cycles 1–20, 1–50, 1–100 for feature extraction (Week 3).
+3. ~~Define early-cycle windows: cycles 1–20, 1–50, 1–100 for feature extraction~~ — done (Week 3; see §4).
