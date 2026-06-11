@@ -23,7 +23,7 @@ Extracted in `05_build_cell_features.ipynb` from the 16-field per-cycle table (1
 | Capacity snapshots | 6 | `capacity_c10`, `soh_c10`, … at cycles 10, 50, 100 |
 | Capacity windows | 9 | slope, mean, std of discharge capacity over w20 / w50 / w100 |
 | State of health | 3 | `soh_w20`, `soh_w50`, `soh_w100` (capacity at window end ÷ `initial_capacity`) |
-| Coulombic efficiency | 6 | mean and std of `energy_efficiency` over w20 / w50 / w100 |
+| Energy efficiency | 6 | mean and std of `energy_efficiency` over w20 / w50 / w100 (dataset field; not Coulombic/Ah ratio) |
 | Temperature | 3 | mean `temperature_average` over w20 / w50 / w100 |
 
 **Window notation:** `w20`, `w50`, `w100` denote statistics over cycles **1–20**, **1–50**, and **1–100** respectively. Linear slopes use ordinary least-squares fit vs `cycle_index`. SOH uses each cell’s `initial_capacity` from `cell_targets.csv`.
@@ -61,7 +61,7 @@ Before training models, `06_feature_correlation.ipynb` computes **Pearson correl
 |---------|-----------|----------------|
 | `delta_v_std_c10_c100` | −0.81 | Greater spread in voltage-curve change (cycles 10→100) associates with **shorter** life |
 | `delta_v_min_c10_c100` | +0.80 | Higher minimum ΔV associates with **longer** life |
-| `efficiency_mean_w100` | +0.78 | Higher mean Coulombic efficiency (cycles 1–100) associates with **longer** life |
+| `efficiency_mean_w100` | +0.78 | Higher mean energy efficiency (cycles 1–100) associates with **longer** life |
 
 **Weaker linear links:** capacity snapshots and capacity slopes alone (e.g. `capacity_c100`, |*r*| ≈ 0.07). This matches Severson et al.: **voltage-curve geometry and efficiency shift before obvious capacity fade** in the first ~100 cycles.
 
@@ -71,4 +71,4 @@ These correlations are **exploratory** (full dataset, univariate); predictive pe
 
 ## 4.6 Summary
 
-We constructed 44 interpretable early-cycle features per cell—capacity, resistance, efficiency, temperature summaries over three windows, plus Severson-style ΔV(Q) curve differences. Univariate screening indicates ΔV(Q) and Coulombic efficiency as the strongest linear signals for EOL on this dataset; raw capacity fade is a weaker solo predictor. The matrix `cell_features.csv` is the input for classical ML baselines in Week 4.
+We constructed 44 interpretable early-cycle features per cell—capacity, resistance, energy efficiency, temperature summaries over three windows, plus Severson-style ΔV(Q) curve differences. Univariate screening indicates ΔV(Q) and energy efficiency as the strongest linear signals for EOL on this dataset; raw capacity fade is a weaker solo predictor. The matrix `cell_features.csv` is the input for classical ML baselines in Week 4.

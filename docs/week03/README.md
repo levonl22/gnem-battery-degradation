@@ -76,7 +76,7 @@ Univariate Pearson correlation on all 134 cells (`notebooks/06_feature_correlati
 |---------|-----------|-----------|
 | `delta_v_std_c10_c100` | −0.81 | Higher spread in voltage-curve change → shorter life |
 | `delta_v_min_c10_c100` | +0.80 | Higher min ΔV → longer life |
-| `efficiency_mean_w100` | +0.78 | Higher mean Coulombic efficiency → longer life |
+| `efficiency_mean_w100` | +0.78 | Higher mean energy efficiency → longer life |
 
 **Weaker linear links:** raw capacity snapshots and capacity slopes alone (e.g. `capacity_c100` |r| ≈ 0.07).
 

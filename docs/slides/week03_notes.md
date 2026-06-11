@@ -12,7 +12,7 @@ Add these slides to the same deck after Week 2.
 - **Input:** first 20 / 50 / 100 cycles per cell (`cycle_index ≥ 1`)
 - **Output:** `cell_features.csv` — **134 cells × 44 features** (+ EOL labels)
 - **Two sources:**
-  - **34 summary features** — capacity, SOH, resistance, Coulombic efficiency, temperature (`cycle_summary.csv`)
+  - **34 summary features** — capacity, SOH, resistance, energy efficiency, temperature (`cycle_summary.csv`)
   - **10 ΔV(Q) features** — voltage-curve change between cycles 10→50 and 10→100 (Severson-style; raw JSON)
 - **Next:** ML baselines on this matrix (Week 4)
 
@@ -49,7 +49,7 @@ raw JSON → notebook 04 ──────┘
 **Bullets:**
 - Pearson correlation vs **EOL** on all **134** cells (exploratory; not a trained model yet)
 - **Read the EOL row/column** on the heatmap — red = higher feature → longer life; blue → shorter life
-- **Strongest links:** ΔV(Q) spread (`delta_v_std_c10_c100`, |r| ≈ 0.8) · Coulombic efficiency (`efficiency_mean_w100`, r ≈ 0.78)
+- **Strongest links:** ΔV(Q) spread (`delta_v_std_c10_c100`, |r| ≈ 0.8) · energy efficiency (`efficiency_mean_w100`, r ≈ 0.78)
 - **Weaker alone:** raw capacity at cycle 100 (|r| ≈ 0.07) — fade is subtle early; curve shape matters more (Severson 2019)
 - Many features are **redundant** (bright blocks) → regularization / selection in Week 4
 
