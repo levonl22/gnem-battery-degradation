@@ -1,3 +1,6 @@
+# macOS
+.DS_Store
+
 # Data files (too large for git)
 data/raw/*.json
 FastCharge.zip
@@ -17,6 +20,7 @@ results/models/*.h5
 # Personal notes (optional)
 Research Papers/
 *.docx
+AI_Based_Lithium_Ion_Battery_Degradation_Project_Plan.pdf
 literature/*.pdf
 
 # Private / local-only docs
