@@ -19,12 +19,26 @@ Regenerate: `python scripts/generate_week12_figures.py`
 
 Regenerate: run `notebooks/06_feature_correlation.ipynb`
 
-## Planned (Weeks 4–7)
+## Week 4
+
+| File | Description |
+|------|-------------|
+| `model_comparison_baselines.png` | Test MAE bar chart — all four models |
+| `pred_vs_true_eol_baselines.png` | 2×2 pred vs true EOL (test set) |
+| `pred_vs_true_eol_linear.png` | Linear regression |
+| `pred_vs_true_eol_elasticnet.png` | ElasticNet |
+| `pred_vs_true_eol_random_forest.png` | Random forest |
+| `pred_vs_true_eol_xgboost.png` | XGBoost |
+| `feature_importance_rf.png` | RF top-15 features |
+| `feature_importance_xgb.png` | XGBoost top-15 features |
+
+Regenerate: run `notebooks/07_ml_baselines.ipynb`
+
+## Planned (Weeks 5–7)
 
 | Week | Suggested filename |
 |------|-------------------|
-| 4 | `baseline_mae_comparison.png`, `pred_vs_true_eol_ml.png` |
-| 5 | `pred_vs_true_eol_lstm.png` |
+| 5 | `pred_vs_true_eol_sequence.png` |
 | 6 | `soh_curves_constrained.png` |
 | 7 | `ablation_early_cycles.png` |
 

@@ -3,9 +3,9 @@ matplotlib>=3.7
 jupyter>=1.0
 numpy>=1.24
 
-# Week 4+ (uncomment when added)
-# scikit-learn>=1.3
-# xgboost>=2.0
+# Week 4+
+scikit-learn>=1.3
+xgboost>=2.0
 
 # Week 5+ (uncomment when added)
 # torch>=2.0

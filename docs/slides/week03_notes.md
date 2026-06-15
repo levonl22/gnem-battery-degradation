@@ -64,7 +64,7 @@ raw JSON → notebook 04 ──────┘
 **Bullets:**
 - Delivered reproducible feature pipeline (notebooks `04`–`06`) and `cell_features.csv`
 - Early **efficiency** and **voltage-curve** signals correlate with lifetime more than capacity alone
-- **Week 4:** cell-level train/test split · Linear · ElasticNet · RF · XGBoost · MAE · pred vs true EOL
+- **Week 4:** cell-level train/val/test split · Linear · ElasticNet · RF · XGBoost · MAE · pred vs true EOL
 
 ---
 
