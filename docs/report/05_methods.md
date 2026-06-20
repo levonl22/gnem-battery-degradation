@@ -43,12 +43,46 @@ Primary comparison uses **test-set** metrics. Validation is used only for hyperp
 
 For random forest and XGBoost we export **gain-based** (XGBoost) and **Gini impurity** (RF) importances for the top features (`results/figures/feature_importance_*.png`).
 
-## 5.2 Sequence model *(Week 5)*
+## 5.2 Sequence model
 
-*(To be completed.)*
+We predict **EOL** from **per-cycle trajectories** in `cycle_summary.csv` rather than the Week 3 feature matrix. Each cell contributes a sequence of length **N = 100** (cycles with `cycle_index` 1–100; cycle 0 excluded) and **four channels**: state-of-health (SOH = `discharge_capacity / initial_capacity`), `dc_internal_resistance`, `energy_efficiency`, and `temperature_average`. Tensor shape per split: (*n* cells, 100 timesteps, 4 channels). Target: `EOL` in cycles.
 
-- LSTM or GRU on early capacity (or voltage) sequences
-- Same cell-level split and metrics
+**Notebook:** `notebooks/08_sequence_model.ipynb`. Index: `docs/week05/README.md`.
+
+**Split:** identical to §5.1 (`data/processed/cell_split.csv`, 94 / 20 / 20, `random_state=42`).
+
+### Preprocessing
+
+1. **Input scaling** — `StandardScaler` on the four channels, fit on all timesteps from **train cells only**, applied to val and test.
+2. **Target scaling** — EOL is standardized using train mean and standard deviation for the training loss; predictions are converted back to cycles before MAE / RMSE / MAPE.
+
+Voltage-curve **ΔV(Q)** features (Week 3) are **not** included—they are derived from raw JSON, not `cycle_summary.csv`. The Week 4 XGBoost baseline used them; sequence-vs-tabular comparison therefore differs in input information as well as model class.
+
+### Model
+
+**GRU (Gated Recurrent Unit)** regressor in PyTorch: unidirectional GRU (`batch_first=True`) reads timesteps in order; the final hidden state passes through dropout and a linear head to predict scaled EOL.
+
+| Setting | Value |
+|---------|-------|
+| Loss | Mean squared error on scaled EOL |
+| Optimizer | Adam |
+| Batch size | 16 |
+| Early stopping | Validation MAE, patience 20, max 200 epochs |
+
+### Hyperparameter selection
+
+Grid search on **validation MAE** over 16 combinations:
+
+- Hidden size ∈ {32, 64}
+- Layers ∈ {1, 2}
+- Dropout ∈ {0.1, 0.2}
+- Learning rate ∈ {0.001, 0.0003}
+
+Best validation settings: hidden size 64, 2 layers, dropout 0.2, learning rate 0.0003. Test-set metrics are reported once using this configuration; test cells are not used during tuning.
+
+### Evaluation metrics
+
+Same as §5.1: **MAE**, **RMSE**, and **MAPE** on train, validation, and test splits (errors in cycles).
 
 ## 5.3 Monotonic SOH constraint *(Week 6)*
 

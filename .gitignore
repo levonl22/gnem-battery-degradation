@@ -23,6 +23,9 @@ Research Papers/
 AI_Based_Lithium_Ion_Battery_Degradation_Project_Plan.pdf
 literature/*.pdf
 
+# Private personal reference (resume / interviews — local only)
+private/
+
 # Private / local-only docs
 docs/week03/correlation_plain_guide.md
 docs/week03/correlation_analysis.md

@@ -39,9 +39,39 @@ We trained four regressors on `cell_features.csv` with the cell-level split in �
 
 XGBoost is the **Week 4 reference baseline** for Week 5 sequence-model comparison.
 
-## 6.2 Sequence model *(Week 5)*
+## 6.2 Sequence model
 
-*(To be completed.)*
+We trained the GRU sequence model in §5.2 on early per-cycle trajectories (100 cycles × 4 channels). Table 2 compares **holdout test** performance to the Week 4 XGBoost baseline (*n* = 20 test cells).
+
+**Table 2 — Test-set EOL prediction error (sequence vs best tabular baseline)**
+
+| Model | MAE (cycles) | RMSE (cycles) | MAPE (%) |
+|-------|-------------|---------------|----------|
+| **XGBoost (Week 4)** | **85** | **108** | **11.0** |
+| GRU sequence (Week 5) | 111 | 134 | 15.4 |
+
+**Best validation hyperparameters (GRU):** hidden size 64, 2 layers, dropout 0.2, learning rate 0.0003.
+
+**Full split metrics (GRU):** train MAE 166, RMSE 255, MAPE 18.6%; val MAE 100, RMSE 129, MAPE 19.8%.
+
+![Predicted vs true EOL — GRU sequence model (test set)](../../results/figures/pred_vs_true_eol_sequence.png)
+
+### Interpretation
+
+**XGBoost remains the stronger holdout model.** The tuned GRU achieves test MAE ~111 cycles (~15% MAPE) versus ~85 cycles (~11% MAPE) for XGBoost—a gap of roughly 25 cycles on average. Validation MAE (~100) is slightly better than test, suggesting modest fold variance rather than catastrophic overfitting, though train MAE (166) indicates the recurrent model does not fit the training set as tightly as XGBoost (train MAE ≈ 0).
+
+**Why the sequence model may lag.** (1) Only **94** training cells for a neural sequence model with ~100 timesteps each. (2) Input channels exclude **ΔV(Q)** and other hand-crafted summaries that ranked highest in Week 4 feature importance. (3) Capacity and resistance change slowly in the first 100 cycles (SOH at cycle 100 still near 1.0 for many cells); much of the predictive signal in tabular models came from efficiency and voltage-curve statistics aggregated over the window.
+
+**Target scaling was required for training.** Initial experiments without EOL standardization produced validation MAE >600 cycles (worse than predicting the train mean). Scaling the regression target during optimization improved validation MAE to ~100 cycles; this is noted as an implementation detail for small-data neural regression.
+
+### Limitations
+
+- Same small holdout as §6.1 (*n* = 20 test).
+- **Feature mismatch vs XGBoost** — not a controlled architecture-only ablation.
+- Single sequence length (*N* = 100); Week 7 ablations will vary the early window.
+- No model checkpoint committed; metrics reproduced from `notebooks/08_sequence_model.ipynb` and `results/metrics/gru_sequence.json`.
+
+The GRU is retained as the **Week 5 sequence baseline** for Week 6 (monotonic SOH constraint) and Week 7 comparisons.
 
 ## 6.3 Physics-informed constraint *(Week 6)*
 
