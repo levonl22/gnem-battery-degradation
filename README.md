@@ -42,7 +42,6 @@ scripts/               # figure generation, utilities
 5. ΔV(Q) explainer figure: `python scripts/generate_delta_v_explainer_figure.py`
 6. Merge labels into cycle summary: `python scripts/merge_labeled_cycle_summary.py`
 7. Report sections: `docs/report/` (merge to PDF in Week 8 via pandoc or Word).
-8. **After each week (post-push):** `./scripts/create_week_backup.sh N` → local snapshot at `../gnem-battery-degradation-weekN-backup` (no raw JSON).
 
 Install: `pip install -r requirements.txt`
 
