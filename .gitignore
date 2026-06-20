@@ -26,6 +26,11 @@ literature/*.pdf
 # Private personal reference (resume / interviews — local only)
 private/
 
+# Cursor / AI tooling — local only, never commit
+AGENTS.md
+.cursor/
+.cursorrules
+
 # Private / local-only docs
 docs/week03/correlation_plain_guide.md
 docs/week03/correlation_analysis.md

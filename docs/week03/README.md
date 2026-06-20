@@ -100,5 +100,5 @@ Univariate Pearson correlation on all 134 cells (`notebooks/06_feature_correlati
 
 - [x] Report §4 — `docs/report/04_features.md`
 - [x] Slides — `docs/slides/week03_notes.md`
-- [x] Update `docs/PROJECT_CONTEXT.md` and root `README.md`
+- [x] Update root `README.md`
 - **Week 4:** ML baselines on `cell_features.csv` (linear, ElasticNet, RF, XGBoost)
