@@ -78,9 +78,9 @@
 
 ## 5. `cycles_interpolated` (not exported to CSV)
 
-- Long-format arrays: ~2,000 points per cycle per signal
+- Long-format arrays: about 2,000 points per cycle per signal
 - Used later for voltage–capacity curves and ΔV(Q)-style features
-- Not included in `cycle_summary.csv` due to size (~millions of points per cell)
+- Not included in `cycle_summary.csv` due to size (about millions of points per cell)
 
 ---
 
@@ -105,7 +105,7 @@ Built in `notebooks/01_data_exploration.ipynb`.
 | **Cycle 0**            | Formation / setup cycle; abnormal capacity and `charge_duration`. Exclude from EOL baseline and early-cycle windows (use cycle ≥ 1, or ≥ 10 for modeling). |
 | **Duplicate barcodes** | Resolved Week 2 (longest run per barcode).                                                                                                               |
 | **Partial cell**       | `el150800737381` excluded.                                                                                                                                 |
-| **Missing values**     | `charge_duration` (~1,209 rows); `time_temperature_integrated` (34 rows).                                                                                  |
+| **Missing values**     | `charge_duration` (about 1,209 rows); `time_temperature_integrated` (34 rows).                                                                                  |
 
 
 ---
@@ -116,7 +116,7 @@ Built in `notebooks/01_data_exploration.ipynb`.
 | Metric                    | Value                  |
 | ------------------------- | ---------------------- |
 | JSON files                | 140                    |
-| Cycles per cell (approx.) | 159–2,237; median ~792 |
+| Cycles per cell (approx.) | 159–2,237; median about 792 |
 | `cycle_summary` rows      | 110,910 (134 cells)    |
 
 

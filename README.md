@@ -19,6 +19,7 @@ docs/week02/           # Week 2 (dedupe policy)
 docs/week03/           # Week 3 (features, correlation)
 docs/week04/           # Week 4 (ML baselines)
 docs/week05/           # Week 5 (GRU sequence model)
+docs/week06/           # Week 6 (monotonic SOH constraint)
 docs/report/           # Report sections (merge Week 8)
 docs/slides/           # Google Slides outlines
 notebooks/01_...       # EOL extraction
@@ -29,6 +30,8 @@ notebooks/05_...       # cell_features merge
 notebooks/06_...       # correlation vs EOL
 notebooks/07_...       # ML baselines (Week 4)
 notebooks/08_...       # GRU sequence model (Week 5)
+notebooks/09_...       # Monotonic SOH constraint (Week 6)
+docs/week06/           # Week 6 (dual-head GRU, monotonic penalty)
 results/figures/       # PNGs for slides + report
 scripts/               # figure generation, utilities
 ```
@@ -36,7 +39,7 @@ scripts/               # figure generation, utilities
 ## How to run
 
 1. Place raw JSON in `data/raw/` (FastCharge*.json).
-2. Run notebooks in order: `01` → `08` (`02` optional inspection).
+2. Run notebooks in order: `01` → `09` (`02` optional inspection).
 3. Rebuild cleaned CSVs (after raw data change): `python scripts/rebuild_processed_data.py`
 4. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
 5. ΔV(Q) explainer figure: `python scripts/generate_delta_v_explainer_figure.py`
@@ -47,6 +50,6 @@ Install: `pip install -r requirements.txt`
 
 ## Project status
 
-Week 5 complete: GRU sequence model on first 100 cycles of `cycle_summary.csv` (4 channels per cycle). Test MAE **~111 cycles** vs XGBoost **~85 cycles** (Week 4). Index: `docs/week05/README.md`.
+Week 6 complete: dual-head GRU with monotonic SOH penalty on the Week 5 sequence input. Unconstrained and constrained (λ = 1.0) both score test EOL MAE **about 112 cycles** vs XGBoost **about 85 cycles** (Week 4). SOH violation rate drops slightly (about 61% → about 60%). Index: `docs/week06/README.md`.
 
-**Next (Week 6):** Monotonic SOH constraint — constrained vs unconstrained degradation curves.
+**Next (Week 7):** Early-cycle window ablations (*N* = 20, 50, 100 cycles).

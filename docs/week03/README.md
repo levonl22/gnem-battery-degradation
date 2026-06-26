@@ -25,7 +25,7 @@ Hand-crafted early-cycle features → `cell_features.csv`, correlation vs EOL, h
 
 **Regenerate features:**
 
-1. `notebooks/04_extract_voltage_features.ipynb` (requires `data/raw/`, ~5–10 min for all cells)
+1. `notebooks/04_extract_voltage_features.ipynb` (requires `data/raw/`, about 5–10 min for all cells)
 2. `notebooks/05_build_cell_features.ipynb`
 
 Optional full rebuild of inputs first: `python scripts/rebuild_processed_data.py`
@@ -80,7 +80,7 @@ Univariate Pearson correlation on all 134 cells (`notebooks/06_feature_correlati
 
 **Weaker linear links:** raw capacity snapshots and capacity slopes alone (e.g. `capacity_c100` |r| ≈ 0.07).
 
-**Takeaway:** ΔV(Q) and early efficiency track EOL more strongly than simple capacity fade in the first ~100 cycles — consistent with Severson et al. (2019). Many ΔV and windowed features are highly correlated with each other (see heatmap); Week 4 models should use regularization or feature selection.
+**Takeaway:** ΔV(Q) and early efficiency track EOL more strongly than simple capacity fade in the first about 100 cycles — consistent with Severson et al. (2019). Many ΔV and windowed features are highly correlated with each other (see heatmap); Week 4 models should use regularization or feature selection.
 
 **Figure:** `results/figures/feature_correlation.png` — 45×45 Pearson matrix (44 features + EOL). Read the **EOL** row/column for feature–lifetime links.
 

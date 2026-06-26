@@ -96,7 +96,7 @@ Raw JSON also contains interpolated voltage/current curves (`cycles_interpolated
 
 - Reproducible code from raw data → features → trained models → evaluation figures.  
 - Clear comparison of ML baselines vs sequence model vs constrained SOH model.  
-- Written report (~8–12 pages) and presentation (10–15 slides) suitable for a graduate research project.
+- Written report (about 8–12 pages) and presentation (10–15 slides) suitable for a graduate research project.
 
 ---
 

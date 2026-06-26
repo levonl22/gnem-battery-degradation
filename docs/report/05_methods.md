@@ -12,9 +12,9 @@ All splits are **cell-level** (by `file_id`) so no battery appears in more than 
 
 | Set | Cells | Role |
 |-----|-------|------|
-| Train | 94 (~70%) | Fit model weights |
-| Validation | 20 (~15%) | Select hyperparameters |
-| Test | 20 (~15%) | Final holdout metrics only |
+| Train | 94 (about 70%) | Fit model weights |
+| Validation | 20 (about 15%) | Select hyperparameters |
+| Test | 20 (about 15%) | Final holdout metrics only |
 
 Split is fixed (`random_state=42`) and saved to `data/processed/cell_split.csv` for reuse in Week 5 (sequence model).
 
@@ -84,9 +84,43 @@ Best validation settings: hidden size 64, 2 layers, dropout 0.2, learning rate 0
 
 Same as §5.1: **MAE**, **RMSE**, and **MAPE** on train, validation, and test splits (errors in cycles).
 
-## 5.3 Monotonic SOH constraint *(Week 6)*
+## 5.3 Monotonic SOH constraint
 
-*(To be completed.)*
+We extend the Week 5 GRU with a **dual-head** architecture that predicts both **EOL** and a **per-cycle SOH trajectory**, then compare **unconstrained** training to training with a **monotonic SOH penalty**—a light physics-informed regularizer, not a full physics-informed neural network (PINN).
 
-- Penalty when predicted SOH increases across cycles
-- Compare unconstrained vs constrained trajectories
+**Notebook:** `notebooks/09_monotonic_soh.ipynb`. Index: `docs/week06/README.md`.
+
+**Split and preprocessing:** identical to §5.2 (`cell_split.csv`, 94 / 20 / 20; input and EOL target scaling as in §5.2). True SOH trajectories (unscaled, capacity ÷ initial capacity) supervise the SOH head.
+
+### Dual-head model
+
+The backbone is the same unidirectional GRU as §5.2 (hidden size 64, 2 layers, dropout 0.2, learning rate 0.0003—fixed at Week 5 best settings). Two linear heads read GRU hidden states:
+
+1. **EOL head** — final timestep hidden state → scaled EOL (scalar per cell).
+2. **SOH head** — hidden state at **each** timestep → predicted SOH at cycles 1–100.
+
+### Loss functions
+
+**Unconstrained** (λ = 0): mean squared error (MSE) on scaled EOL plus **α = 0.1** times MSE on the SOH trajectory. The SOH term teaches the second head to match observed health curves; EOL remains the primary objective.
+
+**Constrained** (λ > 0): add **λ** times a **monotonic penalty**—the batch mean of ReLU(predicted SOH at *t*+1 minus predicted SOH at *t*). The penalty is non-zero only when predicted SOH **increases** from one cycle to the next.
+
+| Setting | Value |
+|---------|-------|
+| Optimizer | Adam |
+| Batch size | 16 |
+| Early stopping | Validation **EOL MAE**, patience 20, max 200 epochs |
+| SOH loss weight α | 0.1 |
+| Monotonic weight λ | Grid {0.01, 0.1, 1.0}; select by validation EOL MAE |
+
+### Hyperparameter selection
+
+We grid-search **λ** on validation EOL MAE while holding GRU architecture and α fixed. Test-set metrics and SOH violation rates are reported once using the best λ; test cells are not used during tuning.
+
+### Evaluation metrics
+
+**EOL:** same as §5.1 — MAE, RMSE, MAPE in cycles on train, validation, and test.
+
+**SOH plausibility:** count and rate of **monotonic violations**—consecutive cycle pairs where predicted SOH increases. Reported per split as violations ÷ (cells × 99 cycle pairs).
+
+Example SOH trajectories (true vs unconstrained vs constrained) are plotted for test cells with the highest unconstrained violation counts.

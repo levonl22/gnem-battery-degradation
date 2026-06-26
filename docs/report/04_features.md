@@ -63,7 +63,7 @@ Before training models, `06_feature_correlation.ipynb` computes **Pearson correl
 | `delta_v_min_c10_c100` | +0.80 | Higher minimum ΔV associates with **longer** life |
 | `efficiency_mean_w100` | +0.78 | Higher mean energy efficiency (cycles 1–100) associates with **longer** life |
 
-**Weaker linear links:** capacity snapshots and capacity slopes alone (e.g. `capacity_c100`, |*r*| ≈ 0.07). This matches Severson et al.: **voltage-curve geometry and efficiency shift before obvious capacity fade** in the first ~100 cycles.
+**Weaker linear links:** capacity snapshots and capacity slopes alone (e.g. `capacity_c100`, |*r*| ≈ 0.07). This matches Severson et al.: **voltage-curve geometry and efficiency shift before obvious capacity fade** in the first about 100 cycles.
 
 The heatmap also shows **high redundancy** among related features (blocks of correlated ΔV statistics and overlapping window summaries). This is expected and motivates **regularization or feature selection** in Week 4 (e.g. ElasticNet) rather than treating all 44 columns as independent inputs.
 

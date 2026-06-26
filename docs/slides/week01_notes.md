@@ -20,7 +20,7 @@ Copy into your deck: **GNEM Battery Degradation — Weekly Progress**
 
 - **Goal:** Predict EOL from early cycles (80% capacity threshold)
 - **Built:** `JSON → cell_targets.csv` + `cycle_summary.csv`
-- **Scale:** 140 raw files → **134 cells** after Week 2 cleaning · ~111k cycle rows
+- **Scale:** 140 raw files → **134 cells** after Week 2 cleaning · about 111k cycle rows
 - **Note:** Formation cycle 0 excluded; duplicate barcodes resolved (Week 2)
 
 **Figure:** `results/figures/eol_distribution.png`

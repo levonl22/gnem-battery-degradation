@@ -11,7 +11,7 @@ Add these slides to the same deck after Week 3.
 **Bullets:**
 - **Input:** `cell_features.csv` — 134 cells × **44 features** (Week 3)
 - **Target:** **EOL** (cycle at 80% capacity)
-- **Split:** cell-level **~70 / 15 / 15** (**94 / 20 / 20** train · val · test, `random_state=42`) — not row-level
+- **Split:** cell-level **about 70 / 15 / 15** (**94 / 20 / 20** train · val · test, `random_state=42`) — not row-level
 - **Val** = pick model settings · **Test** = final score (untouched during tuning)
 - **Metrics:** MAE, RMSE, MAPE (cycles)
 
@@ -46,7 +46,7 @@ Add these slides to the same deck after Week 3.
 
 **Bullets:**
 - Tree models beat linear baselines on holdout
-- Typical error **~85–130 cycles** (~11–19% MAPE) depending on model
+- Typical error **about 85–130 cycles** (about 11–19% MAPE) depending on model
 - Small test set → treat as early baseline, not final word
 
 **Figures:** `model_comparison_baselines.png`, `pred_vs_true_eol_baselines.png`
@@ -78,7 +78,7 @@ Add these slides to the same deck after Week 3.
 
 **Bullets:**
 - Reproducible baselines + saved split (`cell_split.csv`) for fair comparison later
-- **Best baseline so far:** XGBoost, test MAE **~85 cycles**
+- **Best baseline so far:** XGBoost, test MAE **about 85 cycles**
 - **Week 5:** LSTM or GRU on early per-cycle trajectories (`cycle_summary.csv`) — same split, same metrics
 
 ---
@@ -94,7 +94,7 @@ Week 4: trained four ML models to predict end-of-life from our 44 early-cycle fe
 | Question | Answer |
 |----------|--------|
 | What is val vs test? | Val = tune settings; test = final evaluation once. |
-| Why is test only 20 cells? | ~15% of 134; cell-level split keeps whole batteries separate. |
+| Why is test only 20 cells? | about 15% of 134; cell-level split keeps whole batteries separate. |
 | Is 85 cycles good? | Reasonable first baseline; Severson et al. report lower error with curated features + larger effective sample — we compare in the report. |
 | Why not use capacity only? | Week 3 showed weak solo correlation; trees still lean on ΔV and efficiency. |
 | Green vs red bars? | Green = random forest; red = XGBoost. Same story, different importance scores. |

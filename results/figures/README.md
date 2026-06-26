@@ -34,12 +34,27 @@ Regenerate: run `notebooks/06_feature_correlation.ipynb`
 
 Regenerate: run `notebooks/07_ml_baselines.ipynb`
 
-## Planned (Weeks 5–7)
+## Week 5
+
+| File | Description |
+|------|-------------|
+| `pred_vs_true_eol_sequence.png` | GRU test-set predicted vs true EOL |
+
+Regenerate: run `notebooks/08_sequence_model.ipynb`
+
+## Week 6
+
+| File | Description |
+|------|-------------|
+| `soh_curves_constrained.png` | Example test-set SOH trajectories (true vs unconstrained vs constrained) |
+| `model_comparison_soh_penalty.png` | Test MAE — XGBoost vs unconstrained vs constrained GRU |
+
+Regenerate: run `notebooks/09_monotonic_soh.ipynb`
+
+## Planned (Week 7)
 
 | Week | Suggested filename |
 |------|-------------------|
-| 5 | `pred_vs_true_eol_sequence.png` |
-| 6 | `soh_curves_constrained.png` |
 | 7 | `ablation_early_cycles.png` |
 
 Copy figures into Google Slides each week for check-in.

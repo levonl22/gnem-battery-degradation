@@ -1,0 +1,76 @@
+{
+  "model": "gru_dual_monotonic",
+  "sequence_len": 100,
+  "channels": [
+    "soh",
+    "dc_internal_resistance",
+    "energy_efficiency",
+    "temperature_average"
+  ],
+  "soh_alpha": 0.1,
+  "monotonic_lambda": 1.0,
+  "best_params": {
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "learning_rate": 0.0003
+  },
+  "split": {
+    "train": 94,
+    "val": 20,
+    "test": 20,
+    "random_state": 42
+  },
+  "train": {
+    "mae": 167.00773434354966,
+    "rmse": 256.5167870538456,
+    "mape": 18.854279250020355
+  },
+  "val": {
+    "mae": 99.49944115176,
+    "rmse": 128.7321607537141,
+    "mape": 20.277807010687216
+  },
+  "test": {
+    "mae": 112.36637769609528,
+    "rmse": 134.0468123036507,
+    "mape": 15.908902223896911
+  },
+  "soh_violations": {
+    "train": {
+      "split": "train",
+      "violations": 5493,
+      "violation_rate (%)": 59.03
+    },
+    "val": {
+      "split": "val",
+      "violations": 1062,
+      "violation_rate (%)": 53.64
+    },
+    "test": {
+      "split": "test",
+      "violations": 1191,
+      "violation_rate (%)": 60.15
+    }
+  },
+  "lambda_grid_results": [
+    {
+      "monotonic_lambda": 0.01,
+      "val_eol_mae": 99.53,
+      "val_violations": 1072,
+      "val_violation_rate (%)": 54.14
+    },
+    {
+      "monotonic_lambda": 0.1,
+      "val_eol_mae": 99.53,
+      "val_violations": 1072,
+      "val_violation_rate (%)": 54.14
+    },
+    {
+      "monotonic_lambda": 1.0,
+      "val_eol_mae": 99.5,
+      "val_violations": 1062,
+      "val_violation_rate (%)": 53.64
+    }
+  ]
+}

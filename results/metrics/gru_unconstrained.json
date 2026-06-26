@@ -1,0 +1,56 @@
+{
+  "model": "gru_dual_unconstrained",
+  "sequence_len": 100,
+  "channels": [
+    "soh",
+    "dc_internal_resistance",
+    "energy_efficiency",
+    "temperature_average"
+  ],
+  "soh_alpha": 0.1,
+  "monotonic_lambda": 0.0,
+  "best_params": {
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "learning_rate": 0.0003
+  },
+  "split": {
+    "train": 94,
+    "val": 20,
+    "test": 20,
+    "random_state": 42
+  },
+  "train": {
+    "mae": 167.00334135235923,
+    "rmse": 256.50398800589426,
+    "mape": 18.85563971341417
+  },
+  "val": {
+    "mae": 99.53285259284857,
+    "rmse": 128.80454629366523,
+    "mape": 20.30123387782068
+  },
+  "test": {
+    "mae": 112.40928092057818,
+    "rmse": 134.07241351114135,
+    "mape": 15.917733796293373
+  },
+  "soh_violations": {
+    "train": {
+      "split": "train",
+      "violations": 5520,
+      "violation_rate (%)": 59.32
+    },
+    "val": {
+      "split": "val",
+      "violations": 1072,
+      "violation_rate (%)": 54.14
+    },
+    "test": {
+      "split": "test",
+      "violations": 1199,
+      "violation_rate (%)": 60.56
+    }
+  }
+}

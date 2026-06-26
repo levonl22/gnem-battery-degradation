@@ -62,7 +62,7 @@ Add these slides to the same deck after Week 4.
 
 **Bullets:**
 - Built reproducible GRU pipeline on per-cycle data; saved metrics (`gru_sequence.json`)
-- **Best Week 4 baseline still wins:** XGBoost test MAE **~85** vs GRU **~111** cycles
+- **Best Week 4 baseline still wins:** XGBoost test MAE **about 85** vs GRU **about 111** cycles
 - **Week 6:** monotonic SOH (state of health) constraint — penalize predictions that increase across cycles; compare constrained vs unconstrained curves
 
 ---

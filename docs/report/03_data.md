@@ -47,7 +47,7 @@ Across **134** labeled cells in `cell_targets.csv`:
 | Minimum | 159 |
 | Median | 792 |
 | Maximum | 2,237 |
-| Mean | ~822 |
+| Mean | about 822 |
 
 ![EOL distribution](../../results/figures/eol_distribution.png)
 
@@ -55,7 +55,7 @@ The wide spread (159–2,237 cycles) matches the high variability reported by Se
 
 ### Example capacity fade
 
-Figure below shows discharge capacity vs cycle for one cell (`el150800440551`), with the 80% threshold and computed EOL marked. Capacity stabilizes near ~1.05 Ah after cycle 1; fade accelerates later in life.
+Figure below shows discharge capacity vs cycle for one cell (`el150800440551`), with the 80% threshold and computed EOL marked. Capacity stabilizes near about 1.05 Ah after cycle 1; fade accelerates later in life.
 
 ![Capacity fade example](../../results/figures/capacity_fade_example.png)
 
@@ -67,7 +67,7 @@ Cycle 0 shows anomalously high discharge capacity and `charge_duration` compared
 
 ## 3.4 Planned preprocessing (before modeling)
 
-1. ~~Resolve duplicate `cell_id` entries~~ — done (Week 2).  
-2. ~~Drop partial cells~~ — done (`el150800737381` excluded).  
-3. ~~Define early-cycle windows: cycles 1–20, 1–50, 1–100 for feature extraction~~ — done (Week 3; see §4).  
+1. **Done (Week 2):** Resolve duplicate `cell_id` entries.  
+2. **Done (Week 2):** Drop partial cells (`el150800737381` excluded).  
+3. **Done (Week 3):** Define early-cycle windows: cycles 1–20, 1–50, 1–100 for feature extraction (see §4).  
 4. **Outlier screening:** structural cleaning only (dedupe + partial-cell drop). We did **not** remove cells by statistical rules (e.g. extreme EOL or feature z-scores); the 159–2,237 cycle spread matches Severson et al. and is retained for modeling.

@@ -19,7 +19,7 @@ GRU sequence model on early per-cycle trajectories from `cycle_summary.csv` — 
 pip install -r requirements.txt   # includes torch, scikit-learn, xgboost
 ```
 
-**Run:** `notebooks/08_sequence_model.ipynb` (top to bottom). Step C grid search (~16 runs) takes several minutes on CPU.
+**Run:** `notebooks/08_sequence_model.ipynb` (top to bottom). Step C grid search (about 16 runs) takes several minutes on CPU.
 
 **Clear outputs before commit:**
 

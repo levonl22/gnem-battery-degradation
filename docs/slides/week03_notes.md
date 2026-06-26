@@ -31,14 +31,14 @@ raw JSON → notebook 04 ──────┘
 **Title:** Voltage-curve change at the same charge removed
 
 **Bullets:**
-- **Q:** charge removed during one discharge (~0–1 Ah per cell ≈ 0–1000 mAh)
+- **Q:** charge removed during one discharge (about 0–1 Ah per cell ≈ 0–1000 mAh)
 - **Y-axis:** voltage **while discharging** (not “voltage discharged”)
 - Compare **cycle 10 vs cycle 100** at the **same Q** → shift in curve shape before obvious capacity fade
 - **ΔV(Q) = V₁₀₀(Q) − V₁₀(Q)**; we summarize with mean / std / min / max → 10 features
 
 **Figure:** `results/figures/delta_v_q_explainer.png`
 
-**Speaker hint:** One research pouch cell (~1 Ah). Not pack-level mAh like a 10,000 mAh power bank — same physics, smaller scale.
+**Speaker hint:** One research pouch cell (about 1 Ah). Not pack-level mAh like a 10,000 mAh power bank — same physics, smaller scale.
 
 ---
 
@@ -79,6 +79,6 @@ Week 3: built 44 hand-crafted features from the first 100 cycles — summary sta
 | Question | Answer |
 |----------|--------|
 | What is Q? | Charge removed during discharge (Ah); 1 Ah = 1000 mAh. Full cell discharge ≈ 1 Ah here. |
-| Why not just capacity? | Capacity fade is weak in first ~100 cycles; curve shape and efficiency shift earlier. |
-| Is this an EV pack? | No — single ~1 Ah lab cells; same cell-level idea scales to packs. |
+| Why not just capacity? | Capacity fade is weak in first about 100 cycles; curve shape and efficiency shift earlier. |
+| Is this an EV pack? | No — single about 1 Ah lab cells; same cell-level idea scales to packs. |
 | Can you predict EOL yet? | Not until Week 4 — this slide is univariate screening only. |
