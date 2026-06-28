@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Week 7 GRU ablation — run from terminal or notebook (!python scripts/run_gru_ablation.py).
+"""Week 7 GRU ablation — run from terminal or notebook subprocess.
+
+Why not train in the notebook kernel?
+    In-notebook GRU training appeared to hang: heartbeats every 60s on epoch 1 with
+    ~0% CPU (stale kernel defs + PyTorch/OpenMP thread issues on Mac). The same
+    logic in a fresh Python process trains normally. See notebook 10 Step C
+    ("issue, diagnostics, and resolution") for full write-up.
 
 Usage:
     python scripts/run_gru_ablation.py --smoke-test   # 1 combo, 1 epoch, N=20 (~5s)
@@ -99,8 +105,8 @@ def build_tensors(data: pd.DataFrame, summary: pd.DataFrame, seq_len: int) -> np
 def train_gru_model(
     X_train, y_train_scaled, y_train_raw, X_val, y_val_raw,
     y_mean, y_std, hidden_size, num_layers, dropout, learning_rate,
-    combo_label: str = "", max_epochs: int | None = None,
-) -> tuple[GRUEOLRegressor, float]:
+    max_epochs: int | None = None,
+) -> tuple[GRUEOLRegressor, float, int, float]:
     torch.manual_seed(RANDOM_STATE)
     model = GRUEOLRegressor(hidden_size, num_layers, dropout)
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
@@ -111,7 +117,6 @@ def train_gru_model(
     )
     loader = DataLoader(ds, batch_size=GRU_BATCH_SIZE, shuffle=True, num_workers=0)
     n_epochs = GRU_MAX_EPOCHS if max_epochs is None else max_epochs
-    prefix = f"    {combo_label} " if combo_label else "    "
     t0 = time.perf_counter()
     best_val_mae = float("inf")
     best_state = None
@@ -129,28 +134,19 @@ def train_gru_model(
             pred = model(torch.tensor(X_val, dtype=torch.float32)).numpy()
         val_mae = float(np.abs(pred * y_std + y_mean - y_val_raw).mean())
 
-        improved = val_mae < best_val_mae - 1e-4
-        if improved:
+        if val_mae < best_val_mae - 1e-4:
             best_val_mae = val_mae
             best_state = {k: v.clone() for k, v in model.state_dict().items()}
             epochs_no_improve = 0
         else:
             epochs_no_improve += 1
 
-        flag = " *best" if improved else ""
-        print(
-            f"{prefix}epoch {epoch:3d}/{n_epochs}  val {val_mae:6.1f}  "
-            f"patience {epochs_no_improve}/{GRU_PATIENCE}{flag}",
-            flush=True,
-        )
-
         if max_epochs is None and epochs_no_improve >= GRU_PATIENCE:
             break
 
-    total = time.perf_counter() - t0
-    print(f"{prefix}done — {epoch} epochs, best val {best_val_mae:.1f}, {total:.0f}s", flush=True)
+    elapsed = time.perf_counter() - t0
     model.load_state_dict(best_state)
-    return model, best_val_mae
+    return model, best_val_mae, epoch, elapsed
 
 
 def tune_and_eval_gru(seq_len: int, X: np.ndarray, y: np.ndarray, split_arr: np.ndarray, grid) -> dict:
@@ -170,12 +166,16 @@ def tune_and_eval_gru(seq_len: int, X: np.ndarray, y: np.ndarray, split_arr: np.
 
     for i, params in enumerate(grid, start=1):
         label = f"[{i}/{len(grid)}]"
-        print(f"  {label} h={params['hidden_size']} layers={params['num_layers']} "
-              f"dropout={params['dropout']} lr={params['learning_rate']}", flush=True)
-        model, val_mae = train_gru_model(
+        model, val_mae, n_epochs, elapsed = train_gru_model(
             Xs[train_mask], y_scaled[train_mask], y[train_mask],
             Xs[val_mask], y[val_mask], y_mean, y_std,
-            combo_label=label, **params,
+            **params,
+        )
+        print(
+            f"  {label} h={params['hidden_size']} layers={params['num_layers']} "
+            f"dropout={params['dropout']} lr={params['learning_rate']} "
+            f"— val {val_mae:.1f} ({n_epochs} ep, {elapsed:.0f}s)",
+            flush=True,
         )
         if val_mae < best_val_mae:
             best_val_mae = val_mae
@@ -234,13 +234,19 @@ def main() -> int:
         print(f"=== SMOKE TEST N={n} ===", flush=True)
         X = build_tensors(data, summary, n)
         X_tr, y_tr_s, y_tr, X_va, y_va, y_mean, y_std = _scale_split(X, y, split_arr)
-        _, val_mae = train_gru_model(
+        p = GRU_PARAM_GRID[0]
+        _, val_mae, _, elapsed = train_gru_model(
             X_tr, y_tr_s, y_tr, X_va, y_va, y_mean, y_std,
-            combo_label="[smoke]",
             max_epochs=1,
-            **GRU_PARAM_GRID[0],
+            **p,
         )
-        print(f"Smoke test OK — val MAE {val_mae:.1f}", flush=True)
+        print(
+            f"  [smoke] h={p['hidden_size']} layers={p['num_layers']} "
+            f"dropout={p['dropout']} lr={p['learning_rate']} "
+            f"— val {val_mae:.1f} ({elapsed:.0f}s)",
+            flush=True,
+        )
+        print(f"Smoke test OK", flush=True)
         return 0
 
     total_t0 = time.perf_counter()

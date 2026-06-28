@@ -51,10 +51,12 @@ Regenerate: run `notebooks/08_sequence_model.ipynb`
 
 Regenerate: run `notebooks/09_monotonic_soh.ipynb`
 
-## Planned (Week 7)
+## Week 7
 
-| Week | Suggested filename |
-|------|-------------------|
-| 7 | `ablation_early_cycles.png` |
+| File | Description |
+|------|-------------|
+| `ablation_early_cycles.png` | Test MAE vs early-cycle window N — XGBoost vs GRU (N = 20, 50, 100) |
+
+Regenerate: run `notebooks/10_early_cycle_ablation.ipynb` (Step D)
 
 Copy figures into Google Slides each week for check-in.
