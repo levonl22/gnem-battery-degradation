@@ -1,0 +1,44 @@
+{
+  "model": "xgboost",
+  "window_cycles": 20,
+  "best_params": {
+    "max_depth": 7,
+    "learning_rate": 0.05
+  },
+  "n_features": 12,
+  "features": [
+    "resistance_initial",
+    "capacity_c10",
+    "soh_c10",
+    "capacity_slope_w20",
+    "capacity_mean_w20",
+    "capacity_std_w20",
+    "soh_w20",
+    "resistance_mean_w20",
+    "resistance_slope_w20",
+    "efficiency_mean_w20",
+    "efficiency_std_w20",
+    "temp_mean_w20"
+  ],
+  "split": {
+    "train": 94,
+    "val": 20,
+    "test": 20,
+    "random_state": 42
+  },
+  "train": {
+    "mae": 0.22328543663024902,
+    "rmse": 0.35652617490989585,
+    "mape": 0.029434422502670147
+  },
+  "val": {
+    "mae": 120.11528015136719,
+    "rmse": 181.53111820015872,
+    "mape": 29.900505902340758
+  },
+  "test": {
+    "mae": 167.13339233398438,
+    "rmse": 249.5971989401123,
+    "mape": 20.80942057467125
+  }
+}

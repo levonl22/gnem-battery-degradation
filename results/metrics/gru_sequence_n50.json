@@ -1,0 +1,38 @@
+{
+  "model": "gru_sequence",
+  "window_cycles": 50,
+  "sequence_len": 50,
+  "channels": [
+    "soh",
+    "dc_internal_resistance",
+    "energy_efficiency",
+    "temperature_average"
+  ],
+  "best_params": {
+    "hidden_size": 32,
+    "num_layers": 2,
+    "dropout": 0.1,
+    "learning_rate": 0.0003
+  },
+  "split": {
+    "train": 94,
+    "val": 20,
+    "test": 20,
+    "random_state": 42
+  },
+  "train": {
+    "mae": 167.21019377577113,
+    "rmse": 253.44082702313642,
+    "mape": 19.430845374205653
+  },
+  "val": {
+    "mae": 103.44823643970517,
+    "rmse": 128.61418733426015,
+    "mape": 19.320821536965667
+  },
+  "test": {
+    "mae": 143.07560775423676,
+    "rmse": 169.60871995698957,
+    "mape": 19.691434143952247
+  }
+}

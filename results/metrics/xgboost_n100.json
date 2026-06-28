@@ -1,0 +1,76 @@
+{
+  "model": "xgboost",
+  "window_cycles": 100,
+  "best_params": {
+    "max_depth": 5,
+    "learning_rate": 0.1
+  },
+  "n_features": 44,
+  "features": [
+    "resistance_initial",
+    "capacity_c10",
+    "soh_c10",
+    "capacity_c50",
+    "soh_c50",
+    "capacity_c100",
+    "soh_c100",
+    "capacity_slope_w20",
+    "capacity_mean_w20",
+    "capacity_std_w20",
+    "soh_w20",
+    "resistance_mean_w20",
+    "resistance_slope_w20",
+    "efficiency_mean_w20",
+    "efficiency_std_w20",
+    "temp_mean_w20",
+    "capacity_slope_w50",
+    "capacity_mean_w50",
+    "capacity_std_w50",
+    "soh_w50",
+    "resistance_mean_w50",
+    "resistance_slope_w50",
+    "efficiency_mean_w50",
+    "efficiency_std_w50",
+    "temp_mean_w50",
+    "capacity_slope_w100",
+    "capacity_mean_w100",
+    "capacity_std_w100",
+    "soh_w100",
+    "resistance_mean_w100",
+    "resistance_slope_w100",
+    "efficiency_mean_w100",
+    "efficiency_std_w100",
+    "temp_mean_w100",
+    "delta_v_mean_c10_c50",
+    "delta_v_std_c10_c50",
+    "delta_v_var_c10_c50",
+    "delta_v_min_c10_c50",
+    "delta_v_max_c10_c50",
+    "delta_v_mean_c10_c100",
+    "delta_v_std_c10_c100",
+    "delta_v_var_c10_c100",
+    "delta_v_min_c10_c100",
+    "delta_v_max_c10_c100"
+  ],
+  "split": {
+    "train": 94,
+    "val": 20,
+    "test": 20,
+    "random_state": 42
+  },
+  "train": {
+    "mae": 0.0017281390028074384,
+    "rmse": 0.002369564234831482,
+    "mape": 0.0002436147927447675
+  },
+  "val": {
+    "mae": 46.489559173583984,
+    "rmse": 61.17829428323619,
+    "mape": 10.459023192947168
+  },
+  "test": {
+    "mae": 85.22708892822266,
+    "rmse": 108.4976373230657,
+    "mape": 11.048194472236146
+  }
+}
