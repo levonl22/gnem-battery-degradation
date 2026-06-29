@@ -35,7 +35,7 @@ We trained four regressors on `cell_features.csv` with the cell-level split in �
 
 - **Small holdout** (*n* = 20 test, *n* = 20 val) yields noisy metrics; a single mis-predicted short-life cell can inflate MAPE.
 - **XGBoost fits training data nearly exactly** (train MAE ≈ 0), indicating memorization; test performance is still best among baselines but future work should monitor overfitting (e.g. stronger regularization, fewer trees).
-- **No early-cycle window ablation yet** — all 44 features use up to 100 cycles; Week 7 varies *N* = 20, 50, 100.
+- **No early-cycle window ablation yet** — all 44 features use up to 100 cycles; Week 7 varies *N* = 20, 50, 100 *(completed in §6.4)*.
 
 XGBoost is the **Week 4 reference baseline** for Week 5 sequence-model comparison.
 
@@ -68,7 +68,7 @@ We trained the GRU sequence model in §5.2 on early per-cycle trajectories (100 
 
 - Same small holdout as §6.1 (*n* = 20 test).
 - **Feature mismatch vs XGBoost** — not a controlled architecture-only ablation.
-- Single sequence length (*N* = 100); Week 7 ablations will vary the early window.
+- Single sequence length (*N* = 100); Week 7 ablations vary the early window *(see §6.4)*.
 - No model checkpoint committed; metrics reproduced from `notebooks/08_sequence_model.ipynb` and `results/metrics/gru_sequence.json`.
 
 The GRU is retained as the **Week 5 sequence baseline** for Week 6 (monotonic SOH constraint) and Week 7 comparisons.
@@ -113,6 +113,33 @@ We trained the dual-head GRU in §5.3 in **unconstrained** (λ = 0) and **constr
 - EOL is predicted from the final hidden state, not derived from the SOH curve crossing 80%—the two outputs are only loosely coupled.
 - Metrics reproduced from `notebooks/09_monotonic_soh.ipynb`, `gru_unconstrained.json`, and `gru_monotonic.json`.
 
-## 6.4 Ablation: early-cycle windows *(Week 7)*
+## 6.4 Ablation: early-cycle windows
 
-*(To be completed — compare N = 20, 50, 100 cycles.)*
+We retrained XGBoost and the Week 5 single-head GRU at early-cycle windows **N ∈ {20, 50, 100}** (§5.4). Table 5 summarizes **holdout test** EOL error (*n* = 20 cells).
+
+**Table 5 — Test-set EOL MAE by early-cycle window**
+
+| N (cycles) | XGBoost MAE | XGBoost RMSE | XGBoost MAPE (%) | GRU MAE | GRU RMSE | GRU MAPE (%) |
+|------------|-------------|--------------|------------------|---------|----------|--------------|
+| 20 | 167 | 250 | 20.8 | 144 | 174 | 20.4 |
+| 50 | 107 | 145 | 13.7 | 143 | 170 | 19.7 |
+| 100 | **85** | **108** | **11.0** | 110 | 132 | 15.4 |
+
+At **N = 100**, XGBoost test MAE (85 cycles) matches Table 1 (Week 4); GRU test MAE (110 cycles) matches Table 2 (Week 5, about 111 cycles)—confirming consistent splits and preprocessing.
+
+![Early-cycle window ablation — test MAE](../../results/figures/ablation_early_cycles.png)
+
+### Interpretation
+
+**XGBoost error drops sharply as *N* increases.** Test MAE falls from about 167 cycles at *N* = 20 to about 107 at *N* = 50 and about 85 at *N* = 100. The step from 20 → 50 coincides with adding ΔV(Q) features (c10→c50); the step to 100 adds the c10→c100 voltage pair and full 100-cycle summaries. Tabular performance is therefore sensitive both to window length and to voltage-curve inputs absent from the sequence model.
+
+**GRU error is relatively flat between *N* = 20 and 50** (about 144 vs 143 cycles test MAE), then improves at *N* = 100 (about 110 cycles). With only 94 training cells, short sequences may under-utilize the recurrent architecture; the model approaches Week 5 performance only when the full 100-cycle input is available.
+
+**Model ranking reverses at the shortest window.** At *N* = 20, GRU test MAE (about 144) beats XGBoost (about 167) because the tabular model loses all ΔV(Q) features and many aggregated statistics, while the GRU still reads per-cycle SOH, resistance, efficiency, and temperature. At *N* = 100, XGBoost again leads (about 85 vs about 110 cycles)—the same gap observed in §6.1–§6.2.
+
+### Limitations
+
+- Same small holdout as §6.1–§6.3 (*n* = 20 test).
+- Feature sets differ by *N* for XGBoost and by sequence length for GRU—not a single fixed feature vector with truncated rows.
+- Week 6 monotonic dual-head GRU not evaluated at shorter windows.
+- Metrics reproduced from `notebooks/10_early_cycle_ablation.ipynb`, `scripts/run_gru_ablation.py`, and `results/metrics/xgboost_n*.json`, `gru_sequence_n*.json`.

@@ -20,6 +20,7 @@ docs/week03/           # Week 3 (features, correlation)
 docs/week04/           # Week 4 (ML baselines)
 docs/week05/           # Week 5 (GRU sequence model)
 docs/week06/           # Week 6 (monotonic SOH constraint)
+docs/week07/           # Week 7 (early-cycle ablation)
 docs/report/           # Report sections (merge Week 8)
 docs/slides/           # Google Slides outlines
 notebooks/01_...       # EOL extraction
@@ -31,7 +32,9 @@ notebooks/06_...       # correlation vs EOL
 notebooks/07_...       # ML baselines (Week 4)
 notebooks/08_...       # GRU sequence model (Week 5)
 notebooks/09_...       # Monotonic SOH constraint (Week 6)
+notebooks/10_...       # Early-cycle ablation (Week 7)
 docs/week06/           # Week 6 (dual-head GRU, monotonic penalty)
+docs/week07/           # Week 7 (early-cycle window ablation)
 results/figures/       # PNGs for slides + report
 scripts/               # figure generation, utilities
 ```
@@ -39,7 +42,7 @@ scripts/               # figure generation, utilities
 ## How to run
 
 1. Place raw JSON in `data/raw/` (FastCharge*.json).
-2. Run notebooks in order: `01` → `09` (`02` optional inspection).
+2. Run notebooks in order: `01` → `10` (`02` optional inspection).
 3. Rebuild cleaned CSVs (after raw data change): `python scripts/rebuild_processed_data.py`
 4. Regenerate Week 1–2 figures: `python scripts/generate_week12_figures.py`
 5. ΔV(Q) explainer figure: `python scripts/generate_delta_v_explainer_figure.py`
@@ -50,6 +53,6 @@ Install: `pip install -r requirements.txt`
 
 ## Project status
 
-Week 6 complete: dual-head GRU with monotonic SOH penalty on the Week 5 sequence input. Unconstrained and constrained (λ = 1.0) both score test EOL MAE **about 112 cycles** vs XGBoost **about 85 cycles** (Week 4). SOH violation rate drops slightly (about 61% → about 60%). Index: `docs/week06/README.md`.
+Week 7 complete: early-cycle window ablation at *N* = 20, 50, 100 cycles. XGBoost test MAE improves from about **167** → **107** → **85** cycles; GRU is flat at 20–50 (about **144** MAE) then about **110** at *N* = 100. XGBoost still best at full window. Index: `docs/week07/README.md`.
 
-**Next (Week 7):** Early-cycle window ablations (*N* = 20, 50, 100 cycles).
+**Next (Week 8):** Final report PDF, slides deck polish (10–15 slides), repo cleanup.

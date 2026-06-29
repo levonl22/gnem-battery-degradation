@@ -8,5 +8,8 @@ Weekly **copy-paste outlines** for the shared Google deck. The live deck stays i
 | `week02_notes.md` | Capacity fade + EOL distribution |
 | `week03_notes.md` | Features + correlation |
 | `week04_notes.md` | ML baselines + results |
+| `week05_notes.md` | GRU sequence model |
+| `week06_notes.md` | Monotonic SOH constraint |
+| `week07_notes.md` | Early-cycle window ablation |
 
-Add `week05_notes.md`, … as the project progresses. Target **10–15 slides** total by Week 8.
+Add `week08_notes.md` if needed. Target **10–15 slides** total by Week 8.

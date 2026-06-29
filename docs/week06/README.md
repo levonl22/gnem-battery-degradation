@@ -108,4 +108,4 @@ Fraction of consecutive cycle pairs where **predicted SOH increases**:
 
 ## Next
 
-- **Week 7:** Early-cycle window ablations (*N* = 20, 50, 100 cycles)
+- **Week 8:** Final report PDF, slides deck (10–15 slides), repo polish

@@ -124,3 +124,35 @@ We grid-search **λ** on validation EOL MAE while holding GRU architecture and �
 **SOH plausibility:** count and rate of **monotonic violations**—consecutive cycle pairs where predicted SOH increases. Reported per split as violations ÷ (cells × 99 cycle pairs).
 
 Example SOH trajectories (true vs unconstrained vs constrained) are plotted for test cells with the highest unconstrained violation counts.
+
+## 5.4 Early-cycle window ablation
+
+We ask how much early-cycle data is required for stable EOL prediction by retraining at window lengths **N ∈ {20, 50, 100}** with the same cell-level split as §5.1–§5.3.
+
+**Notebook:** `notebooks/10_early_cycle_ablation.ipynb`. Index: `docs/week07/README.md`.
+
+**Split:** `data/processed/cell_split.csv` (94 / 20 / 20, `random_state=42`).
+
+### Tabular model (XGBoost)
+
+For each *N*, we subset `cell_features.csv` to columns computable from cycles 1…*N* only (`features_for_window`):
+
+| N | Feature count | ΔV(Q) included |
+|---|---------------|----------------|
+| 20 | 12 | No |
+| 50 | 28 | c10→c50 pair |
+| 100 | 44 | c10→c50 and c10→c100 (Week 4 full set) |
+
+Hyperparameter grid and evaluation match §5.1 (validation MAE for `max_depth` and `learning_rate`; test metrics once per *N*).
+
+### Sequence model (GRU)
+
+For each *N*, we build tensors (*n* cells, *N* timesteps, 4 channels) from `cycle_summary.csv`—same four channels as §5.2 (SOH, resistance, energy efficiency, temperature). Hyperparameter grid (16 combinations) and early stopping match §5.2; best combo selected on validation MAE per window.
+
+GRU training runs via `scripts/run_gru_ablation.py` in a fresh Python subprocess to avoid Jupyter kernel stale definitions and Mac PyTorch/OpenMP threading issues (documented in the notebook).
+
+Week 6 dual-head monotonic GRU is **not** included; this ablation varies input window only.
+
+### Evaluation metrics
+
+Same as §5.1: **MAE**, **RMSE**, **MAPE** on train, validation, and test. Primary comparison uses **test-set** MAE across *N* and model type. At *N* = 100, results should align with Week 4 XGBoost and Week 5 GRU baselines within rounding.
