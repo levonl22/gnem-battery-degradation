@@ -12,6 +12,7 @@ FastCharge.zip
 # Python cache
 __pycache__/
 *.pyc
+.venv/
 
 # Large results
 results/models/*.pkl
@@ -27,6 +28,7 @@ literature/*.pdf
 private/
 
 # Cursor / AI tooling — local only, never commit
+.vscode/
 AGENTS.md
 .cursor/
 .cursorrules

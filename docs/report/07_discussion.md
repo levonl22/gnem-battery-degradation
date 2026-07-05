@@ -21,9 +21,7 @@ The **Week 6 monotonic SOH penalty** did not materially change EOL error (about 
 ## 7.3 Future work
 
 - **External validation** — NASA or CALCE datasets (dos Reis et al., 2021) to test transfer beyond the MIT-Stanford-Toyota cohort.
-- **Richer sequence inputs** — incorporate ΔV(Q) or other voltage-curve channels into recurrent models for a fairer comparison with XGBoost.
+- **Richer sequence inputs** — incorporate ΔV(Q) or other voltage-curve channels into recurrent models for a fairer comparison with XGBoost. Implementation options and effort estimates: `docs/future_work.md` §1.
 - **Larger cohorts / ensembling** — more cells would stabilize neural sequence training and ablation trends.
 - **Stronger physics-informed constraints** — larger λ grids, post-hoc monotonic projection, or full PINN-style formulations if SOH curve plausibility is a deployment requirement.
-- **Alternative sequence architectures** — Transformers or pretrained time-series models (Chen 2022; Hu 2025) on longer or multi-resolution windows.
-
-*(Week 8 — merge sections, conclusion, and references into final PDF.)*
+- **Alternative sequence architectures** — Transformers or pretrained time-series models (Chen et al., 2022; Hu et al., 2025) on longer or multi-resolution windows.

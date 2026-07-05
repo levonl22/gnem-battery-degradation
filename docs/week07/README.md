@@ -125,4 +125,4 @@ At **N = 100**: XGBoost **85** matches Week 4; GRU **110** matches Week 5 (about
 
 ## Next
 
-- **Week 8:** merge report PDF, final slides deck (10–15 slides), repo polish
+- **Week 8:** Final report, slides, showcase poster, repo polish — see `docs/week08/README.md`

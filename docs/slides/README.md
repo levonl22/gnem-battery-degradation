@@ -12,4 +12,4 @@ Weekly **copy-paste outlines** for the shared Google deck. The live deck stays i
 | `week06_notes.md` | Monotonic SOH constraint |
 | `week07_notes.md` | Early-cycle window ablation |
 
-Add `week08_notes.md` if needed. Target **10–15 slides** total by Week 8.
+**Final deck (Week 8):** [`FINAL_DECK.md`](FINAL_DECK.md) · [`final_deck_notes.md`](final_deck_notes.md) · `results/gnem_battery_slides.pptx` (12 slides, no Week 8 check-in).

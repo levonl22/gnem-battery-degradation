@@ -59,4 +59,13 @@ Regenerate: run `notebooks/09_monotonic_soh.ipynb`
 
 Regenerate: run `notebooks/10_early_cycle_ablation.ipynb` (Step D)
 
+## Week 8 (poster)
+
+| File | Description |
+|------|-------------|
+| `feature_correlation_poster.png` | Top 12 features + EOL — readable heatmap for showcase poster |
+| `github_qr.png` | QR code → GitHub repo |
+
+Regenerate: `python scripts/generate_poster_heatmap.py` (heatmap) · QR via `qrcode` (see `scripts/generate_poster.py` workflow in `docs/week08/README.md`)
+
 Copy figures into Google Slides each week for check-in.
