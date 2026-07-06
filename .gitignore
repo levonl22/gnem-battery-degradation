@@ -17,6 +17,8 @@ __pycache__/
 # Large results
 results/models/*.pkl
 results/models/*.h5
+# Auto-draft from generate_poster.py; canonical poster is LAU_gnem_battery_poster.pdf
+results/gnem_battery_poster.pptx
 
 # Personal notes (optional)
 Research Papers/
